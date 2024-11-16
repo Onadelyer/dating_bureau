@@ -28,6 +28,17 @@ class Ui_Management(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.tabWidget = QTabWidget(Management)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tab_clients_by_quarter = QWidget()
+        self.tab_clients_by_quarter.setObjectName(u"tab_clients_by_quarter")
+        self.verticalLayoutClientsByQuarter = QVBoxLayout(self.tab_clients_by_quarter)
+        self.verticalLayoutClientsByQuarter.setObjectName(u"verticalLayoutClientsByQuarter")
+        self.clients_by_quarter_table = QTableWidget(self.tab_clients_by_quarter)
+        self.clients_by_quarter_table.setObjectName(u"clients_by_quarter_table")
+        self.clients_by_quarter_table.setColumnCount(5)
+
+        self.verticalLayoutClientsByQuarter.addWidget(self.clients_by_quarter_table)
+
+        self.tabWidget.addTab(self.tab_clients_by_quarter, "")
         self.tab_clients = QWidget()
         self.tab_clients.setObjectName(u"tab_clients")
         self.verticalLayoutClients = QVBoxLayout(self.tab_clients)
@@ -117,6 +128,13 @@ class Ui_Management(object):
 
     def retranslateUi(self, Management):
         Management.setWindowTitle(QCoreApplication.translate("Management", u"\u0423\u043f\u0440\u0430\u0432\u043b\u0456\u043d\u043d\u044f \u0414\u0430\u043d\u0438\u043c\u0438", None))
+        self.clients_by_quarter_table.setHorizontalHeaderLabels([
+            QCoreApplication.translate("Management", u"\u041a\u0432\u0430\u0440\u0442\u0430\u043b", None),
+            QCoreApplication.translate("Management", u"\u041f\u043e\u0432\u043d\u0435 \u0406\u043c'\u044f", None),
+            QCoreApplication.translate("Management", u"\u0412\u0456\u043a", None),
+            QCoreApplication.translate("Management", u"\u0421\u0442\u0430\u0442\u044c", None),
+            QCoreApplication.translate("Management", u"\u0414\u0430\u0442\u0430 \u0414\u043e\u0434\u0430\u0432\u0430\u043d\u043d\u044f", None)])
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_clients_by_quarter), QCoreApplication.translate("Management", u"\u041a\u043b\u0456\u0454\u043d\u0442\u0438 \u0437\u0430 \u043a\u0432\u0430\u0440\u0442\u0430\u043b\u0430\u043c\u0438", None))
         self.client_search_field.setPlaceholderText(QCoreApplication.translate("Management", u"\u041f\u043e\u0448\u0443\u043a \u041a\u043b\u0456\u0454\u043d\u0442\u0456\u0432...", None))
         self.search_client_button.setText(QCoreApplication.translate("Management", u"\u041f\u043e\u0448\u0443\u043a", None))
         self.clients_table.setHorizontalHeaderLabels([

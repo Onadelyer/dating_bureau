@@ -52,7 +52,10 @@ class AddWindow(QWidget, Ui_AddForm):  # Використовуємо прави
             return
 
         preferred_age_range = (preferred_age_min, preferred_age_max)
-        client = Client(full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio)
+        client = Client(
+            full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio,
+            date_added=datetime.now()  # Додано поле date_added
+        )
         clients = self.client_db.read_from_file()
         clients.append(client)
         self.client_db.write_all(clients)

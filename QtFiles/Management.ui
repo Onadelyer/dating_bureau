@@ -16,6 +16,29 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
         <widget class="QTabWidget" name="tabWidget">
+        <widget class="QWidget" name="tab_clients_by_quarter">
+            <attribute name="title">
+                <string>Клієнти за кварталами</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayoutClientsByQuarter">
+                <item>
+                    <widget class="QTableWidget" name="clients_by_quarter_table">
+                        <property name="columnCount">
+                            <number>5</number>
+                        </property>
+                        <property name="horizontalHeaderLabels">
+                            <stringlist>
+                                <string>Квартал</string>
+                                <string>Повне Ім'я</string>
+                                <string>Вік</string>
+                                <string>Стать</string>
+                                <string>Дата Додавання</string>
+                            </stringlist>
+                        </property>
+                    </widget>
+                </item>
+            </layout>
+        </widget>
          <widget class="QWidget" name="tab_clients">
             <attribute name="title">
              <string>Клієнти</string>

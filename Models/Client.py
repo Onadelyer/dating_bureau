@@ -1,5 +1,6 @@
 from Models.Person import Person
 from typing import List, Tuple
+from datetime import datetime
 
 class Client(Person):
     """Клас для зберігання даних про клієнтів бюро знайомств"""
@@ -12,7 +13,8 @@ class Client(Person):
         contact_info: str, 
         preferred_age_range: Tuple[int, int], 
         preferred_gender: str, 
-        bio: str
+        bio: str,
+        date_added: datetime = None  # Нове поле
     ):
         super().__init__(full_name, age)
         self.gender = gender
@@ -21,6 +23,7 @@ class Client(Person):
         self.preferred_age_range = preferred_age_range
         self.preferred_gender = preferred_gender
         self.bio = bio
+        self.date_added = date_added or datetime.now()  # Встановлюємо поточну дату, якщо не задано
 
     def update_profile(self, **kwargs):
         for key, value in kwargs.items():

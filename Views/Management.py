@@ -28,6 +28,7 @@ class Management(QWidget, Ui_Management):
         self.delete_client_button.clicked.connect(self.delete_client_method)
         self.delete_match_button.clicked.connect(self.delete_match_method)
         self.delete_meeting_button.clicked.connect(self.delete_meeting_method)
+        self.fill_clients_by_quarter_table()
 
     def fill_clients_table(self, clients: list[Client]) -> None:
         """Заповнення таблиці клієнтів"""
@@ -122,3 +123,29 @@ class Management(QWidget, Ui_Management):
         meetings = [meeting for meeting in self.meeting_db.read_from_file() if not (', '.join([client.full_name for client in meeting.participants]) == participants_text and meeting.scheduled_date == scheduled_date)]
         self.meeting_db.write_all(meetings)
         self.fill_meetings_table(meetings)
+
+    def group_clients_by_quarter(self):
+        """Групування клієнтів за кварталами року"""
+        clients = self.client_db.read_from_file()
+        quarters = {1: [], 2: [], 3: [], 4: []}
+        for client in clients:
+            month = client.date_added.month
+            quarter = (month - 1) // 3 + 1
+            quarters[quarter].append(client)
+        return quarters
+    
+    def fill_clients_by_quarter_table(self):
+        """Заповнення таблиці клієнтів за кварталами"""
+        quarters = self.group_clients_by_quarter()
+        self.clients_by_quarter_table.clearContents()
+        total_rows = sum(len(clients) for clients in quarters.values())
+        self.clients_by_quarter_table.setRowCount(total_rows)
+        row = 0
+        for quarter, clients in sorted(quarters.items()):
+            for client in clients:
+                self.clients_by_quarter_table.setItem(row, 0, QTableWidgetItem(f"Квартал {quarter}"))
+                self.clients_by_quarter_table.setItem(row, 1, QTableWidgetItem(client.full_name))
+                self.clients_by_quarter_table.setItem(row, 2, QTableWidgetItem(str(client.age)))
+                self.clients_by_quarter_table.setItem(row, 3, QTableWidgetItem(client.gender))
+                self.clients_by_quarter_table.setItem(row, 4, QTableWidgetItem(client.date_added.strftime("%Y-%m-%d")))
+                row += 1

@@ -1,6 +1,7 @@
 from Servises.BasicService import BasicService
 from Models.Client import Client
 from typing import List, Tuple
+from datetime import datetime
 
 class ClientDatabase(BasicService):
     def __init__(self):
@@ -12,7 +13,7 @@ class ClientDatabase(BasicService):
             with open(self.file_path, "r") as file:
                 for line in file:
                     data = line.strip().split('~')
-                    if len(data) == 9:
+                    if len(data) == 10:  # Змінили з 9 на 10
                         full_name = data[0]
                         age = int(data[1])
                         gender = data[2]
@@ -21,11 +22,13 @@ class ClientDatabase(BasicService):
                         preferred_age_range = (int(data[5]), int(data[6]))
                         preferred_gender = data[7]
                         bio = data[8]
-                        client = Client(full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio)
+                        date_added = datetime.fromisoformat(data[9])  # Нове поле
+                        client = Client(full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio, date_added)
                         clients.append(client)
         except FileNotFoundError:
             pass
         return clients
+
 
     def write_all(self, clients: List[Client]) -> None:
         with open(self.file_path, "w") as file:
@@ -39,7 +42,9 @@ class ClientDatabase(BasicService):
                     str(client.preferred_age_range[0]),
                     str(client.preferred_age_range[1]),
                     client.preferred_gender,
-                    client.bio
+                    client.bio,
+                    client.date_added.isoformat()  # Нове поле
                 ]
                 line = '~'.join(data)
                 file.write(line + '\n')
+
