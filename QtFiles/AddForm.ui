@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddForm</class>
+ <widget class="QWidget" name="AddForm">
+    <property name="geometry">
+     <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>800</width>
+        <height>600</height>
+     </rect>
+    </property>
+    <property name="windowTitle">
+     <string>Додати Дані</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+            <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_client">
+            <attribute name="title">
+             <string>Додати Клієнта</string>
+            </attribute>
+            <layout class="QFormLayout" name="formLayoutClient">
+             <item row="0" column="0">
+                <widget class="QLabel" name="label_client_name">
+                 <property name="text">
+                    <string>Повне Ім'я:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="0" column="1">
+                <widget class="QLineEdit" name="client_name"/>
+             </item>
+             <item row="1" column="0">
+                <widget class="QLabel" name="label_client_age">
+                 <property name="text">
+                    <string>Вік:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="1" column="1">
+                <widget class="QSpinBox" name="client_age">
+                 <property name="minimum">
+                    <number>18</number>
+                 </property>
+                 <property name="maximum">
+                    <number>100</number>
+                 </property>
+                </widget>
+             </item>
+             <item row="2" column="0">
+                <widget class="QLabel" name="label_client_gender">
+                 <property name="text">
+                    <string>Стать:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="2" column="1">
+                <widget class="QComboBox" name="client_gender">
+                 <item>
+                    <property name="text">
+                     <string>Чоловік</string>
+                    </property>
+                 </item>
+                 <item>
+                    <property name="text">
+                     <string>Жінка</string>
+                    </property>
+                 </item>
+                 <item>
+                    <property name="text">
+                     <string>Інше</string>
+                    </property>
+                 </item>
+                </widget>
+             </item>
+             <item row="3" column="0">
+                <widget class="QLabel" name="label_client_interests">
+                 <property name="text">
+                    <string>Інтереси (через кому):</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="3" column="1">
+                <widget class="QLineEdit" name="client_interests"/>
+             </item>
+             <item row="4" column="0">
+                <widget class="QLabel" name="label_client_contact_info">
+                 <property name="text">
+                    <string>Контактна Інформація:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="4" column="1">
+                <widget class="QLineEdit" name="client_contact_info"/>
+             </item>
+             <item row="5" column="0">
+                <widget class="QLabel" name="label_client_preferred_age">
+                 <property name="text">
+                    <string>Бажаний Віковий Діапазон:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="5" column="1">
+                <layout class="QHBoxLayout" name="horizontalLayoutPreferredAge">
+                 <item>
+                    <widget class="QSpinBox" name="client_preferred_age_min">
+                     <property name="minimum">
+                        <number>18</number>
+                     </property>
+                     <property name="maximum">
+                        <number>100</number>
+                     </property>
+                    </widget>
+                 </item>
+                 <item>
+                    <widget class="QLabel" name="label_dash">
+                     <property name="text">
+                        <string>-</string>
+                     </property>
+                    </widget>
+                 </item>
+                 <item>
+                    <widget class="QSpinBox" name="client_preferred_age_max">
+                     <property name="minimum">
+                        <number>18</number>
+                     </property>
+                     <property name="maximum">
+                        <number>100</number>
+                     </property>
+                    </widget>
+                 </item>
+                </layout>
+             </item>
+             <item row="6" column="0">
+                <widget class="QLabel" name="label_client_preferred_gender">
+                 <property name="text">
+                    <string>Бажана Стать:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="6" column="1">
+                <widget class="QComboBox" name="client_preferred_gender">
+                 <item>
+                    <property name="text">
+                     <string>Чоловік</string>
+                    </property>
+                 </item>
+                 <item>
+                    <property name="text">
+                     <string>Жінка</string>
+                    </property>
+                 </item>
+                 <item>
+                    <property name="text">
+                     <string>Будь-яка</string>
+                    </property>
+                 </item>
+                </widget>
+             </item>
+             <item row="7" column="0">
+                <widget class="QLabel" name="label_client_bio">
+                 <property name="text">
+                    <string>Біографія:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="7" column="1">
+                <widget class="QTextEdit" name="client_bio"/>
+             </item>
+             <item row="8" column="1" alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="add_client_button">
+                 <property name="text">
+                    <string>Додати Клієнта</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+         <widget class="QWidget" name="tab_match">
+            <attribute name="title">
+             <string>Додати Пару</string>
+            </attribute>
+            <layout class="QFormLayout" name="formLayoutMatch">
+             <item row="0" column="0">
+                <widget class="QLabel" name="label_match_client_a">
+                 <property name="text">
+                    <string>Клієнт A:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="0" column="1">
+                <widget class="QComboBox" name="match_client_a"/>
+             </item>
+             <item row="1" column="0">
+                <widget class="QLabel" name="label_match_client_b">
+                 <property name="text">
+                    <string>Клієнт B:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="1" column="1">
+                <widget class="QComboBox" name="match_client_b"/>
+             </item>
+             <item row="2" column="1" alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="add_match_button">
+                 <property name="text">
+                    <string>Додати Пару</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+         <widget class="QWidget" name="tab_meeting">
+            <attribute name="title">
+             <string>Додати Зустріч</string>
+            </attribute>
+            <layout class="QFormLayout" name="formLayoutMeeting">
+             <item row="0" column="0">
+                <widget class="QLabel" name="label_meeting_participants">
+                 <property name="text">
+                    <string>Учасники:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="0" column="1">
+                <widget class="QListWidget" name="meeting_participants" />
+             </item>
+             <item row="1" column="0">
+                <widget class="QLabel" name="label_meeting_date">
+                 <property name="text">
+                    <string>Дата та Час:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="1" column="1">
+                <widget class="QDateTimeEdit" name="meeting_date">
+                 <property name="calendarPopup">
+                    <bool>true</bool>
+                 </property>
+                </widget>
+             </item>
+             <item row="2" column="0">
+                <widget class="QLabel" name="label_meeting_location">
+                 <property name="text">
+                    <string>Місце:</string>
+                 </property>
+                </widget>
+             </item>
+             <item row="2" column="1">
+                <widget class="QLineEdit" name="meeting_location"/>
+             </item>
+             <item row="3" column="1" alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="add_meeting_button">
+                 <property name="text">
+                    <string>Додати Зустріч</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+        </widget>
+     </item>
+    </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

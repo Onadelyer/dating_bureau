@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MenuWindow</class>
+ <widget class="QMainWindow" name="MenuWindow">
+    <property name="geometry">
+     <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>600</width>
+        <height>400</height>
+     </rect>
+    </property>
+    <property name="windowTitle">
+     <string>Головне Меню</string>
+    </property>
+    <widget class="QWidget" name="centralwidget">
+     <layout class="QVBoxLayout" name="verticalLayout">
+        <item alignment="Qt::AlignCenter">
+         <widget class="QLabel" name="label_title">
+            <property name="text">
+             <string>Система Бюро Знайомств</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="font">
+             <font>
+                <pointsize>20</pointsize>
+                <weight>75</weight>
+             </font>
+            </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignCenter">
+         <widget class="QPushButton" name="AddItems">
+            <property name="text">
+             <string>Додати Дані</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+M</string>
+            </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignCenter">
+         <widget class="QPushButton" name="Management">
+            <property name="text">
+             <string>Управління</string>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+S</string>
+            </property>
+         </widget>
+        </item>
+        <item alignment="Qt::AlignCenter">
+         <widget class="QPushButton" name="About">
+            <property name="text">
+             <string>Про Програму</string>
+            </property>
+            <property name="shortcut">
+             <string>F1</string>
+            </property>
+         </widget>
+        </item>
+     </layout>
+    </widget>
+    <widget class="QMenuBar" name="menubar">
+     <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>600</width>
+         <height>21</height>
+        </rect>
+     </property>
+     <widget class="QMenu" name="menuNavigation">
+        <property name="title">
+         <string>Навігація</string>
+        </property>
+        <addaction name="actionAddData"/>
+        <addaction name="actionManagement"/>
+        <addaction name="actionAbout"/>
+     </widget>
+     <addaction name="menuNavigation"/>
+    </widget>
+    <addaction name="actionAddData"/>
+    <addaction name="actionManagement"/>
+    <addaction name="actionAbout"/>
+    <action name="actionAddData">
+     <property name="text">
+        <string>Додати Дані</string>
+     </property>
+    </action>
+    <action name="actionManagement">
+     <property name="text">
+        <string>Управління</string>
+     </property>
+    </action>
+    <action name="actionAbout">
+     <property name="text">
+        <string>Про Програму</string>
+     </property>
+    </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

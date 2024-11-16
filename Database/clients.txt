@@ -1,0 +1,4 @@
+John Doe~30~Male~music,sports~john@example.com~25~35~Female~Loves outdoor activities
+Jane Smith~28~Female~art,travel~jane@example.com~27~35~Male~Enjoys painting and exploring new places
+Asdfsdf~18~Female~asd asd~asdasd~18~20~Male~asdasdasd
+Хуй~18~Чоловік~Пизда~Через ширінку~18~22~Чоловік~test

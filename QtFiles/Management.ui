@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Management</class>
+ <widget class="QWidget" name="Management">
+    <property name="geometry">
+     <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>1000</width>
+        <height>700</height>
+     </rect>
+    </property>
+    <property name="windowTitle">
+     <string>Управління Даними</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+        <widget class="QTabWidget" name="tabWidget">
+         <widget class="QWidget" name="tab_clients">
+            <attribute name="title">
+             <string>Клієнти</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayoutClients">
+             <item>
+                <widget class="QLineEdit" name="client_search_field">
+                 <property name="placeholderText">
+                    <string>Пошук Клієнтів...</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QPushButton" name="search_client_button">
+                 <property name="text">
+                    <string>Пошук</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QTableWidget" name="clients_table">
+                 <property name="columnCount">
+                    <number>4</number>
+                 </property>
+                 <property name="horizontalHeaderLabels">
+                    <stringlist>
+                     <string>Повне Ім'я</string>
+                     <string>Вік</string>
+                     <string>Стать</string>
+                     <string>Інтереси</string>
+                    </stringlist>
+                 </property>
+                </widget>
+             </item>
+             <item alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="delete_client_button">
+                 <property name="text">
+                    <string>Видалити Клієнта</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+         <widget class="QWidget" name="tab_matches">
+            <attribute name="title">
+             <string>Пари</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayoutMatches">
+             <item>
+                <widget class="QLineEdit" name="match_search_field">
+                 <property name="placeholderText">
+                    <string>Пошук Пар...</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QPushButton" name="search_match_button">
+                 <property name="text">
+                    <string>Пошук</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QTableWidget" name="matches_table">
+                 <property name="columnCount">
+                    <number>4</number>
+                 </property>
+                 <property name="horizontalHeaderLabels">
+                    <stringlist>
+                     <string>Клієнт А</string>
+                     <string>Клієнт Б</string>
+                     <string>Оцінка Сумісності</string>
+                     <string>Статус</string>
+                    </stringlist>
+                 </property>
+                </widget>
+             </item>
+             <item alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="delete_match_button">
+                 <property name="text">
+                    <string>Видалити Пару</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+         <widget class="QWidget" name="tab_meetings">
+            <attribute name="title">
+             <string>Зустрічі</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayoutMeetings">
+             <item>
+                <widget class="QLineEdit" name="meeting_search_field">
+                 <property name="placeholderText">
+                    <string>Пошук Зустрічей...</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QPushButton" name="search_meeting_button">
+                 <property name="text">
+                    <string>Пошук</string>
+                 </property>
+                </widget>
+             </item>
+             <item>
+                <widget class="QTableWidget" name="meetings_table">
+                 <property name="columnCount">
+                    <number>4</number>
+                 </property>
+                 <property name="horizontalHeaderLabels">
+                    <stringlist>
+                     <string>Учасники</string>
+                     <string>Дата та Час</string>
+                     <string>Місце</string>
+                     <string>Статус</string>
+                    </stringlist>
+                 </property>
+                </widget>
+             </item>
+             <item alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="delete_meeting_button">
+                 <property name="text">
+                    <string>Видалити Зустріч</string>
+                 </property>
+                </widget>
+             </item>
+            </layout>
+         </widget>
+        </widget>
+     </item>
+    </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
