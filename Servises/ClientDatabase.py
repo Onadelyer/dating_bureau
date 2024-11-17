@@ -1,50 +1,29 @@
 from Servises.BasicService import BasicService
 from Models.Client import Client
-from typing import List, Tuple
+from typing import List, Dict
 from datetime import datetime
+from Servises.Database import Database
 
 class ClientDatabase(BasicService):
     def __init__(self):
-        self.file_path = "Database/clients.txt"
+        self.collection = Database.get_collection('clients')
 
-    def read_from_file(self) -> List[Client]:
+    def read_all(self) -> List[Client]:
         clients = []
-        try:
-            with open(self.file_path, "r") as file:
-                for line in file:
-                    data = line.strip().split('~')
-                    if len(data) == 10:  # Змінили з 9 на 10
-                        full_name = data[0]
-                        age = int(data[1])
-                        gender = data[2]
-                        interests = data[3].split(',')
-                        contact_info = data[4]
-                        preferred_age_range = (int(data[5]), int(data[6]))
-                        preferred_gender = data[7]
-                        bio = data[8]
-                        date_added = datetime.fromisoformat(data[9])  # Нове поле
-                        client = Client(full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio, date_added)
-                        clients.append(client)
-        except FileNotFoundError:
-            pass
+        cursor = self.collection.find()
+        for doc in cursor:
+            client = Client.from_dict(doc)
+            clients.append(client)
         return clients
 
+    def insert(self, client: Client) -> None:
+        self.collection.insert_one(client.to_dict())
 
-    def write_all(self, clients: List[Client]) -> None:
-        with open(self.file_path, "w") as file:
-            for client in clients:
-                data = [
-                    client.full_name,
-                    str(client.age),
-                    client.gender,
-                    ','.join(client.interests),
-                    client.contact_info,
-                    str(client.preferred_age_range[0]),
-                    str(client.preferred_age_range[1]),
-                    client.preferred_gender,
-                    client.bio,
-                    client.date_added.isoformat()  # Нове поле
-                ]
-                line = '~'.join(data)
-                file.write(line + '\n')
+    def delete(self, full_name: str) -> None:
+        self.collection.delete_one({'full_name': full_name})
 
+    def find_by_name(self, full_name: str) -> Client:
+        doc = self.collection.find_one({'full_name': full_name})
+        if doc:
+            return Client.from_dict(doc)
+        return None

@@ -1,5 +1,6 @@
 from datetime import date
 from Models.Client import Client
+from Servises.ClientDatabase import ClientDatabase
 
 class Match:
     """Клас для зберігання даних про співпадіння між клієнтами"""
@@ -19,3 +20,22 @@ class Match:
 
     def update_status(self, new_status: str) -> None:
         self.status = new_status
+
+    def to_dict(self) -> dict:
+        return {
+            'client_a_full_name': self.client_a.full_name,
+            'client_b_full_name': self.client_b.full_name,
+            'matched_on': self.matched_on,
+            'compatibility_score': self.compatibility_score,
+            'status': self.status
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict, client_db: ClientDatabase):
+        client_a = client_db.find_by_name(data['client_a_full_name'])
+        client_b = client_db.find_by_name(data['client_b_full_name'])
+        matched_on = data.get('matched_on', datetime.now())
+        match = cls(client_a, client_b, matched_on)
+        match.compatibility_score = data.get('compatibility_score', 0.0)
+        match.status = data.get('status', 'new')
+        return match

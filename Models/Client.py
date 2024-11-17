@@ -35,3 +35,30 @@ class Client(Person):
         gender_match = other_client.gender == self.preferred_gender
         interest_match = bool(set(self.interests) & set(other_client.interests))
         return age_match and gender_match and interest_match
+
+    def to_dict(self) -> dict:
+        return {
+            'full_name': self.full_name,
+            'age': self.age,
+            'gender': self.gender,
+            'interests': self.interests,
+            'contact_info': self.contact_info,
+            'preferred_age_range': self.preferred_age_range,
+            'preferred_gender': self.preferred_gender,
+            'bio': self.bio,
+            'date_added': self.date_added
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        return cls(
+            full_name=data['full_name'],
+            age=data['age'],
+            gender=data['gender'],
+            interests=data['interests'],
+            contact_info=data['contact_info'],
+            preferred_age_range=tuple(data['preferred_age_range']),
+            preferred_gender=data['preferred_gender'],
+            bio=data['bio'],
+            date_added=data.get('date_added', datetime.now())
+        )

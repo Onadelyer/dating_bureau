@@ -26,8 +26,14 @@ class AddWindow(QWidget, Ui_AddForm):  # Використовуємо прави
 
     def init_comboboxes(self):
         """Ініціалізація комбо-боксів з іменами клієнтів"""
-        clients = self.client_db.read_from_file()
-        client_names = [client.full_name for client in clients]
+        try:
+            clients = self.client_db.read_all()
+            if clients is None:
+                raise Exception("Не вдалося отримати клієнтів з бази даних")
+            client_names = [client.full_name for client in clients]
+        except Exception as e:
+            QMessageBox.critical(self, "Помилка", str(e))
+            client_names = []
         self.match_client_a.clear()
         self.match_client_b.clear()
         self.meeting_participants.clear()
@@ -54,13 +60,14 @@ class AddWindow(QWidget, Ui_AddForm):  # Використовуємо прави
         preferred_age_range = (preferred_age_min, preferred_age_max)
         client = Client(
             full_name, age, gender, interests, contact_info, preferred_age_range, preferred_gender, bio,
-            date_added=datetime.now()  # Додано поле date_added
+            date_added=datetime.now()
         )
-        clients = self.client_db.read_from_file()
-        clients.append(client)
-        self.client_db.write_all(clients)
+
+        # Використовуємо метод insert для додавання клієнта в базу даних
+        self.client_db.insert(client)
         QMessageBox.information(self, "Успіх", "Клієнта успішно додано")
         self.init_comboboxes()
+
 
     def add_match_method(self):
         """Додавання нового співпадіння"""

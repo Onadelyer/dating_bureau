@@ -18,9 +18,9 @@ class Management(QWidget, Ui_Management):
         self.match_db = MatchDatabase()
         self.meeting_db = MeetingDatabase()
 
-        self.fill_clients_table(self.client_db.read_from_file())
-        self.fill_matches_table(self.match_db.read_from_file())
-        self.fill_meetings_table(self.meeting_db.read_from_file())
+        self.fill_clients_table(self.client_db.read_all())
+        self.fill_matches_table(self.match_db.read_all())
+        self.fill_meetings_table(self.meeting_db.read_all())
 
         self.search_client_button.clicked.connect(self.search_client_method)
         self.search_match_button.clicked.connect(self.search_match_method)
