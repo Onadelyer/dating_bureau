@@ -1,13 +1,13 @@
-from datetime import date
+from datetime import datetime
 from Models.Client import Client
 from Servises.ClientDatabase import ClientDatabase
 
 class Match:
     """Клас для зберігання даних про співпадіння між клієнтами"""
-    def __init__(self, client_a: Client, client_b: Client, matched_on: date = None):
+    def __init__(self, client_a: Client, client_b: Client, matched_on: datetime = None):
         self.client_a = client_a
         self.client_b = client_b
-        self.matched_on = matched_on or date.today()
+        self.matched_on = matched_on or datetime.now()
         self.compatibility_score = self.calculate_compatibility()
         self.status = "new"
 
@@ -35,7 +35,10 @@ class Match:
         client_a = client_db.find_by_name(data['client_a_full_name'])
         client_b = client_db.find_by_name(data['client_b_full_name'])
         matched_on = data.get('matched_on', datetime.now())
+        if isinstance(matched_on, str):
+            matched_on = datetime.fromisoformat(matched_on)
         match = cls(client_a, client_b, matched_on)
         match.compatibility_score = data.get('compatibility_score', 0.0)
         match.status = data.get('status', 'new')
         return match
+

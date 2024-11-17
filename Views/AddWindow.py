@@ -68,36 +68,30 @@ class AddWindow(QWidget, Ui_AddForm):  # Використовуємо прави
         QMessageBox.information(self, "Успіх", "Клієнта успішно додано")
         self.init_comboboxes()
 
-
     def add_match_method(self):
         """Додавання нового співпадіння"""
         client_a_name = self.match_client_a.currentText()
         client_b_name = self.match_client_b.currentText()
-        clients = self.client_db.read_from_file()
-        client_dict = {client.full_name: client for client in clients}
 
-        client_a = client_dict.get(client_a_name)
-        client_b = client_dict.get(client_b_name)
+        client_a = self.client_db.find_by_name(client_a_name)
+        client_b = self.client_db.find_by_name(client_b_name)
 
         if not client_a or not client_b:
             QMessageBox.warning(self, "Помилка", "Невірно вибрані клієнти")
             return
 
         match = Match(client_a, client_b)
-        matches = self.match_db.read_from_file()
-        matches.append(match)
-        self.match_db.write_all(matches)
+        self.match_db.insert(match)
         QMessageBox.information(self, "Успіх", "Співпадіння успішно додано")
 
     def add_meeting_method(self):
         """Додавання нової зустрічі"""
         participant_items = self.meeting_participants.selectedItems()
         participants = []
-        clients = self.client_db.read_from_file()
-        client_dict = {client.full_name: client for client in clients}
 
         for item in participant_items:
-            client = client_dict.get(item.text())
+            client_name = item.text()
+            client = self.client_db.find_by_name(client_name)
             if client:
                 participants.append(client)
 
@@ -112,7 +106,5 @@ class AddWindow(QWidget, Ui_AddForm):  # Використовуємо прави
             return
 
         meeting = Meeting(participants, scheduled_date, location)
-        meetings = self.meeting_db.read_from_file()
-        meetings.append(meeting)
-        self.meeting_db.write_all(meetings)
+        self.meeting_db.insert(meeting)
         QMessageBox.information(self, "Успіх", "Зустріч успішно заплановано")

@@ -67,8 +67,9 @@ class Management(QWidget, Ui_Management):
         if not search_text:
             QMessageBox.warning(self, "Помилка", "Введіть текст для пошуку")
             return
-        clients = [client for client in self.client_db.read_from_file() if search_text.lower() in client.full_name.lower()]
+        clients = [client for client in self.client_db.read_all() if search_text.lower() in client.full_name.lower()]
         self.fill_clients_table(clients)
+
 
     def search_match_method(self):
         """Пошук співпадінь"""
@@ -76,8 +77,9 @@ class Management(QWidget, Ui_Management):
         if not search_text:
             QMessageBox.warning(self, "Помилка", "Введіть текст для пошуку")
             return
-        matches = [match for match in self.match_db.read_from_file() if search_text.lower() in match.client_a.full_name.lower() or search_text.lower() in match.client_b.full_name.lower()]
+        matches = [match for match in self.match_db.read_all() if search_text.lower() in match.client_a.full_name.lower() or search_text.lower() in match.client_b.full_name.lower()]
         self.fill_matches_table(matches)
+
 
     def search_meeting_method(self):
         """Пошук зустрічей"""
@@ -85,8 +87,9 @@ class Management(QWidget, Ui_Management):
         if not search_text:
             QMessageBox.warning(self, "Помилка", "Введіть текст для пошуку")
             return
-        meetings = [meeting for meeting in self.meeting_db.read_from_file() if search_text.lower() in ', '.join([client.full_name for client in meeting.participants]).lower()]
+        meetings = [meeting for meeting in self.meeting_db.read_all() if search_text.lower() in ', '.join([client.full_name for client in meeting.participants]).lower()]
         self.fill_meetings_table(meetings)
+
 
     def delete_client_method(self):
         """Видалення клієнта"""
@@ -95,8 +98,8 @@ class Management(QWidget, Ui_Management):
             QMessageBox.warning(self, "Помилка", "Виберіть клієнта для видалення")
             return
         full_name = self.clients_table.item(row, 0).text()
-        clients = [client for client in self.client_db.read_from_file() if client.full_name != full_name]
-        self.client_db.write_all(clients)
+        self.client_db.delete(full_name)
+        clients = self.client_db.read_all()
         self.fill_clients_table(clients)
 
     def delete_match_method(self):
@@ -107,9 +110,12 @@ class Management(QWidget, Ui_Management):
             return
         client_a_name = self.matches_table.item(row, 0).text()
         client_b_name = self.matches_table.item(row, 1).text()
-        matches = [match for match in self.match_db.read_from_file() if not ((match.client_a.full_name == client_a_name and match.client_b.full_name == client_b_name) or (match.client_a.full_name == client_b_name and match.client_b.full_name == client_a_name))]
-        self.match_db.write_all(matches)
+        # Видаляємо співпадіння з бази даних
+        self.match_db.delete(client_a_name, client_b_name)
+        # Зчитуємо оновлений список співпадінь
+        matches = self.match_db.read_all()
         self.fill_matches_table(matches)
+
 
     def delete_meeting_method(self):
         """Видалення зустрічі"""
@@ -120,19 +126,24 @@ class Management(QWidget, Ui_Management):
         participants_text = self.meetings_table.item(row, 0).text()
         scheduled_date_text = self.meetings_table.item(row, 1).text()
         scheduled_date = datetime.strptime(scheduled_date_text, "%Y-%m-%d %H:%M")
-        meetings = [meeting for meeting in self.meeting_db.read_from_file() if not (', '.join([client.full_name for client in meeting.participants]) == participants_text and meeting.scheduled_date == scheduled_date)]
-        self.meeting_db.write_all(meetings)
+        participants_names = participants_text.split(', ')
+        # Видаляємо зустріч з бази даних
+        self.meeting_db.delete(participants_names, scheduled_date)
+        # Зчитуємо оновлений список зустрічей
+        meetings = self.meeting_db.read_all()
         self.fill_meetings_table(meetings)
+
 
     def group_clients_by_quarter(self):
         """Групування клієнтів за кварталами року"""
-        clients = self.client_db.read_from_file()
+        clients = self.client_db.read_all()
         quarters = {1: [], 2: [], 3: [], 4: []}
         for client in clients:
             month = client.date_added.month
             quarter = (month - 1) // 3 + 1
             quarters[quarter].append(client)
         return quarters
+
     
     def fill_clients_by_quarter_table(self):
         """Заповнення таблиці клієнтів за кварталами"""
